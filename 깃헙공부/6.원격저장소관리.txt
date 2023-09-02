@@ -1,0 +1,69 @@
+C:\Tutorial\Git-Tutorial>git remote    // 현재 원격저장소로 어떤것이 등록돼있는지 origin이란 이름으로 원격저장소가 등록됨
+origin
+C:\Tutorial\Git-Tutorial>git remote show origin            // 현재 origin이라는 이름의 원격저장소는 깃허브서버 이러한 서버로부터 pull push할수있고 head branch는 main
+* remote origin
+  Fetch URL: https://github.com/seohyunKangSouthKorea/Git-Tutorial.git
+  Push  URL: https://github.com/seohyunKangSouthKorea/Git-Tutorial.git
+  HEAD branch: main
+  Remote branch:
+    main tracked
+  Local branch configured for 'git pull':
+    main merges with remote main
+  Local ref configured for 'git push':
+    main pushes to main (up to date)
+
+C:\Tutorial\Git-Tutorial>git remote add test https://github.com/seohyunKangSouthKorea/ArduinoRhythmGame.git //특정한원격저장소를 등록하고자 할 때 test라는 이름으로 등록함
+C:\Tutorial\Git-Tutorial>git remote -v        // 원격저장소의 전체 목록을 확인
+origin  https://github.com/seohyunKangSouthKorea/Git-Tutorial.git (fetch)
+origin  https://github.com/seohyunKangSouthKorea/Git-Tutorial.git (push)
+test    https://github.com/seohyunKangSouthKorea/ArduinoRhythmGame.git (fetch)
+test    https://github.com/seohyunKangSouthKorea/ArduinoRhythmGame.git (push)
+
+C:\Tutorial\Git-Tutorial>git remote rename test temp            // 원격저장소의 이름을 바꾸고 싶을 때 test에서 temp로 
+
+C:\Tutorial\Git-Tutorial>git remote -v
+origin  https://github.com/seohyunKangSouthKorea/Git-Tutorial.git (fetch)
+origin  https://github.com/seohyunKangSouthKorea/Git-Tutorial.git (push)
+temp    https://github.com/seohyunKangSouthKorea/ArduinoRhythmGame.git (fetch)
+temp    https://github.com/seohyunKangSouthKorea/ArduinoRhythmGame.git (push)
+
+
+
+C:\Tutorial\Git-Tutorial>git log origin/main  // 깃허브서버 origin원격저장소에 대한 git log도 찍을 수 있음
+commit b8c2e8254b06ad0dcc36f3ad1c3386369dd64928 (HEAD -> main, origin/main, origin/HEAD)
+Merge: 2fd29a3 58a630c
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 06:43:56 2023 +0900
+
+    Add my_module [Div] & Comment
+
+commit 2fd29a3870f17040389aff73bd6f0cb2ff9c735f
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 06:41:06 2023 +0900
+
+    Add my_module [Div] & Comment
+
+commit 58a630c217b390f2348980e569f3eb66d4b07ceb
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 06:39:32 2023 +0900
+
+    Add my_module [Div]
+
+commit ba2d9f4d42b3db4a96c3954a75518ee1edd13d8f
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 06:00:55 2023 +0900
+
+    Add my_module [Mul]
+
+commit 679370a4c7805036c3b808973ffc242d8f741f9e
+Author: Seohyun <korean021030@gmail.com>
+Date:   Fri Sep 1 17:36:52 2023 +0900
+
+C:\Tutorial\Git-Tutorial>git merge origin/main       // 뿐만아니라 merge도 가능
+Already up to date. 
+
+C:\Tutorial\Git-Tutorial>git remote rm temp         // 특정원격저장소 제거
+
+C:\Tutorial\Git-Tutorial>git remote -v
+origin  https://github.com/seohyunKangSouthKorea/Git-Tutorial.git (fetch)
+origin  https://github.com/seohyunKangSouthKorea/Git-Tutorial.git (push)

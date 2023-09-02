@@ -1,0 +1,186 @@
+C:\Users\ksh72>git config --global user.name Seohyun Kang
+C:\Users\ksh72>git config --global user.email korean021030@gmail.com
+C:\Tutorial>git clone https://github.com/seohyunKangSouthKorea/Git-Tutorial.git // 원격저장소에서 여기로 가져옴 클론해옴
+C:\Tutorial\Git-Tutorial>git status      //어디에 있는지 상태를 보여준다 스테이징영역에 있는지 커밋이 됐는지 원격저장소로 갔는지
+
+C:\Tutorial\Git-Tutorial>git add my_module.java // 스테이징 영역으로 올림
+C:\Tutorial\Git-Tutorial>git reset my_module.java  // 스테이징 상태에서 다시 원상태로 내릴 수도 있음
+
+C:\Tutorial\Git-Tutorial>git add .                                            // 변경된 소스코드를 스테이징영역에 올리고
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Sub]"      // 커밋 진행 로컬저장소로 올림
+C:\Tutorial\Git-Tutorial>git push                                             // 원격저장소에 올림
+
+C:\Tutorial\Git-Tutorial>git commit --amend                        // 커밋메시지 변경법 들어갈때 a나올때esc 후 :wq!
+
+C:\Tutorial\Git-Tutorial>git pull            // 깃헙에 있는걸 내컴퓨터로 저장하기 동기화 지금은 둘다 같아서임
+
+C:\Tutorial\Git-Tutorial>git log                                                                        // 커밋 내역들을 보여줌 로그 로그를 그만보고싶으면 q입력
+C:\Tutorial\Git-Tutorial>git reset --hard 2846499631a448779aa1565d063f7b64582dc88e // TextFile커밋때로 돌아가기 그위의 커밋들은 모두 삭제된다. 돌아가고싶은 커밋으로 가고싶을때 그커밋의 해시값을 넣어서 돌아간다 물론 그 커밋의 후의 커밋들은 삭제된다
+C:\Tutorial\Git-Tutorial>git push -f                                                                    // 위명령어후에 쌩으로 git push하면 오류남 그래서 원격저장소랑 같게하려면 -f 옵션줘서 강제로 해야함
+
+____________________________________merge하는 법_________________________________________________________________________
+C:\Tutorial\Git-Tutorial>git branch develop                             // develop 브랜치 생성
+C:\Tutorial\Git-Tutorial>git branch                                       // 생성돼있는 브랜치를 확인할 수 있다 지금은 head가 main이다.
+  develop
+* main
+C:\Tutorial\Git-Tutorial>git checkout develop                          // develop브랜치로 접속하기 head를 develop으로 바꾼것이다.
+
+develop브랜치에서 my_module.java파일을 수정후 거기서
+C:\Tutorial\Git-Tutorial>git add .
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Mul]"  // 커밋까지만 진행
+
+C:\Tutorial\Git-Tutorial>git log                                                         // log를 찍어보면
+commit ba2d9f4d42b3db4a96c3954a75518ee1edd13d8f (HEAD -> develop)  // 현재 헤드가 develop브랜치를 가리키고있음을 보이고 커밋이 진행됨을 확인
+    Add my_module [Mul] 
+
+C:\Tutorial\Git-Tutorial>git checkout main                      // merge하기위해서 main으로 다시 돌아간 이후에
+C:\Tutorial\Git-Tutorial>git merge develop                    // merge를 이용해서 develop이라는 이름의 브랜치를 main으로 합칠수있게된다.
+C:\Tutorial\Git-Tutorial>git log                                   // 다시한번 log를 찍어보면 main과 develop이 둘다 수정된 함수를 반영함을 알 수 있고
+commit ba2d9f4d42b3db4a96c3954a75518ee1edd13d8f (HEAD -> main, develop)
+    Add my_module [Mul]
+C:\Tutorial\Git-Tutorial>git push                               // 원격지에서도 반영이 되기 위해서 git push꼭해줘야함
+C:\Tutorial\Git-Tutorial>git branch -d develop            // 병합이 끝난 브랜치는 기능을 다했기에 develop브랜치 지우기
+_____________________________________________________________________________________________
+
+
+__________________________conflict 해결법____________________________________
+C:\Tutorial\Git-Tutorial>git branch develop
+C:\Tutorial\Git-Tutorial>git branch
+  develop
+* main
+C:\Tutorial\Git-Tutorial>git checkout develop
+develop브랜치에서 my_module.java수정
+C:\Tutorial\Git-Tutorial>git add .
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Div]"
+
+C:\Tutorial\Git-Tutorial>git checkout main
+main브랜치에서 my_module.java수정
+C:\Tutorial\Git-Tutorial>git add .
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Div] & Comment"
+
+C:\Tutorial\Git-Tutorial>git log                                // main브랜치에서 log를 찍으면 여기서부터 develop브랜치의 것이 안보임 두쪽에서 my_module.java를 손봤기때문에 그파일은 이제 다른게돼서 이제 다른길을 가는것임
+commit 2fd29a3870f17040389aff73bd6f0cb2ff9c735f (HEAD -> main)        // 편의상 author랑 date지움
+    Add my_module [Div] & Comment
+    ...
+
+C:\Tutorial\Git-Tutorial>git checkout develop // develop브랜치로 가서
+C:\Tutorial\Git-Tutorial>git log                   // develop입장의로그를 찍어봐도 develop의 것들만 나온다. main브랜치의 것들이 이제 안나온다  Div 와 Div & Comment부터 서로 갈림길에 슨것임
+commit 58a630c217b390f2348980e569f3eb66d4b07ceb (HEAD -> develop)    // 편의상 author랑 date지움
+    Add my_module [Div]
+    . . .
+
+C:\Tutorial\Git-Tutorial>git checkout main  // 그럼이제 merge를 하기위해 main브랜치로감
+C:\Tutorial\Git-Tutorial>git merge develop  // merge하려 봤더니 위에서 본것처럼 서로다른 것이 돼버려서 충돌이 발생함
+Auto-merging my_module.java
+CONFLICT (content): Merge conflict in my_module.java
+Automatic merge failed; fix conflicts and then commit the result.
+
+그렇다면 궁극적으로 merge를 하고자하니까 한쪽이 뜻을 굽혀야함 main브랜치에서수정한 mymodule.java의 내용으로 수정할것인지
+아니면 develop브랜치에서 수정한 mymodule.java의 내용으로 수정할 것인지 물론 위치는 main브랜치에서 mymodule.java를 수정해야함
+일단 main에서 수정한 내용을 적용해서 다시 수정했다고 바꿨다고 해보자 
+
+C:\Tutorial\Git-Tutorial>git add .                                                        // 그럼 다시 스테이징영역에올리고
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Div] & Comment"  // 커밋해서 로컬저장소에 넣고
+C:\Tutorial\Git-Tutorial>git merge develop               // 합침                   // develop브랜치를 main으로합치고
+C:\Tutorial\Git-Tutorial>git push                                                       // 원격저장소에 넣는다.
+C:\Tutorial\Git-Tutorial>git branch -d develop                                     // 자기 할일을 끝낸 브랜치는 삭제해줌
+Deleted branch develop (was 58a630c).
+___________________________________________________________________________________________________________________________
+
+________________커밋 내역 보여주는 log찍기___________________________________________________
+C:\Tutorial\Git-Tutorial>git log --pretty=oneline           // 각각의 커밋내역들을 한줄에 표시(언제커밋됐는지 등의 다양한정보는 출력되지않음)
+b8c2e8254b06ad0dcc36f3ad1c3386369dd64928 (HEAD -> main, origin/main, origin/HEAD) Add my_module [Div] & Comment
+2fd29a3870f17040389aff73bd6f0cb2ff9c735f Add my_module [Div] & Comment
+58a630c217b390f2348980e569f3eb66d4b07ceb Add my_module [Div]
+ba2d9f4d42b3db4a96c3954a75518ee1edd13d8f Add my_module [Mul]
+679370a4c7805036c3b808973ffc242d8f741f9e Add my_module [Sub]
+f8cb84290e8b36c9aef59bb566d83d49b94ae416 Add my_module [Add]
+2846499631a448779aa1565d063f7b64582dc88e Add Text File [document.txt]
+
+젤많이 쓰이는 명령어
+C:\Tutorial\Git-Tutorial>git log --pretty=format:"%h -> %an, %ar : %s" --graph   // 커밋해시값 -> authorname, 작성날짜 : 커밋메시지 그래프와함께 출력
+*   b8c2e82 -> Seohyun, 10 hours ago : Add my_module [Div] & Comment
+|\
+| * 58a630c -> Seohyun, 10 hours ago : Add my_module [Div]
+* | 2fd29a3 -> Seohyun, 10 hours ago : Add my_module [Div] & Comment
+|/
+* ba2d9f4 -> Seohyun, 11 hours ago : Add my_module [Mul]
+* 679370a -> Seohyun, 23 hours ago : Add my_module [Sub]
+* f8cb842 -> Seohyun, 23 hours ago : Add my_module [Add]
+* 2846499 -> Seohyun, 25 hours ago : Add Text File [document.txt]
+
+develop과 main브랜치가 각각 동일한 시점에서 어떻게 구성이 됐는지 확인할 수 있고 
+두가지중에 main에서 수정한내용을 선택해서 결과적으로 해당 main브랜치로 merge가 일어난것까지 graph형태로확인 가능
+________________________________________________________________________________________________________________________________
+
+__________________git archive______________________________________________________________
+Git Archive명령은 깃프로젝트에서 .git폴더빼고 다 추출해서 압축파일로 만드는 것이다.
+C:\Tutorial\Git-Tutorial>git archive --format=zip main -o main.zip    // main 브랜치에서 가져와서 main.zip으로 추출하겠다. 
+__________________________________________________________________________________
+
+
+_____________________________________ git rebase로 커밋메시지 수정________________________________
+C:\Git Project Example>git rebase -i HEAD~3
+
+그럼 아래처럼 뜬다. 우리가 바꾸고싶은건 Delete를 Drop으로 커밋내용이아닌 커밋메시지만 바꾸고자 하기때문에 pick을 reword로 바꾸면된다.
+pick 42d864f Update Example 1.txt
+pick e0d8b26 Delete Example 1.txt
+pick d0f3037 Add Example 2.txt
+
+reword : 커밋메시지 수정 
+reword로 바꾸고 :wq!저장해서나오면
+pick 42d864f Update Example 1.txt
+reword e0d8b26 Delete Example 1.txt
+pick d0f3037 Add Example 2.txt
+
+이렇게 또뜬다 어떻게 커밋 메시지를 바꿀 건지 물으는 것이다 여기서 Delete를 Drop으로 바꾸면된다.
+Delete Example 1.txt
+
+Delete -> Drop으로 바꾸고 :wq!
+Drop Example 1.txt
+
+근데 커밋을 많이 해서 옛날 커밋을 바꾸고자해 rebase하려면 커밋해시값을 넣으면 된다. 그러면 넣어준 커밋제외 위쪽으로 확인한다.
+C:\Git Project Example>git rebase -i 42d864f662b072d13c46ac64f1647131a86c364b
+
+Update Example 1.txt 커밋의 위쪽2개가 확인됨을 볼수있다.
+pick a58e9f5 Drop Example 1.txt
+pick f833a4d Add Example 2.txt
+_________________________________________________________________________________________________
+
+____________________________git rebase로 커밋자체 삭제법_________________________________
+C:\Git Project Example>git rebase -i HEAD~3
+pick 42d864f Update Example 1.txt
+pick a58e9f5 Drop Example 1.txt
+pick f833a4d Add Example 2.txt
+
+drop : 커밋 자체 삭제
+Drop의 커밋자체를 삭제하기위해 drop으로 수정후 :wq!로 저장해서 나가기
+pick 42d864f Update Example 1.txt
+drop a58e9f5 Drop Example 1.txt
+pick f833a4d Add Example 2.txt
+
+log찍어보니 drop커밋이 삭제된것이 보임
+C:\Git Project Example>git log 
+commit 7f330a6bce58e6523af62290f865f6e22b5c9cf9 (HEAD -> master)
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:58 2023 +0900
+
+    Add Example 2.txt
+
+commit 42d864f662b072d13c46ac64f1647131a86c364b
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:01 2023 +0900
+
+    Update Example 1.txt
+
+commit 54ef55c1c04ba13d3ee56b1f6ad1dc705cbced22
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:54:13 2023 +0900
+
+    Add Example 1.txt
+
+
+example 1.txt를 지우는 commit을 제거를 했기 때문에
+
+폴더에 가보면 example 1.txt가 생겨난 것을 확인 할 수 있음
+____________________________________________________________________________

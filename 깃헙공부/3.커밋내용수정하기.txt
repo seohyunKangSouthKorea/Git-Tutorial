@@ -1,0 +1,71 @@
+C:\Tutorial\Git-Tutorial>git pull            // 깃헙에 있는걸 내컴퓨터로 저장하기 동기화 지금은 둘다 같아서임
+Already up to date.
+C:\Tutorial\Git-Tutorial>git add .
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Mul]"
+C:\Tutorial\Git-Tutorial>git push
+C:\Tutorial\Git-Tutorial>git log                       // 커밋 내역들을 보여줌 로그 로그를 그만보고싶으면 q입력
+commit 63c719ef2c7c7492522cba5e84869270461a0dae (HEAD -> main, origin/main, origin/HEAD)
+Author: Seohyun <korean021030@gmail.com>
+Date:   Fri Sep 1 17:24:11 2023 +0900
+
+    Add my_module [Mul]
+
+commit 079aee031ae5c2fb3b1cd0246400e5ad2490dce9
+Author: Seohyun <korean021030@gmail.com>
+Date:   Fri Sep 1 17:14:24 2023 +0900
+
+    Add my_module [Sub]
+
+commit 762e873a1cdd46ddae875102af4b5a011139b276
+Author: Seohyun <korean021030@gmail.com>
+Date:   Fri Sep 1 17:09:06 2023 +0900
+
+    Add my_module [Add]
+
+commit 2846499631a448779aa1565d063f7b64582dc88e
+Author: Seohyun <korean021030@gmail.com>
+Date:   Fri Sep 1 15:56:01 2023 +0900
+
+    Add Text File [document.txt]
+
+C:\Tutorial\Git-Tutorial>git reset --hard 2846499631a448779aa1565d063f7b64582dc88e // TextFile커밋때로 돌아가기 그위의 커밋들은 모두 삭제된다.
+HEAD is now at 2846499 Add Text File [document.txt]
+
+C:\Tutorial\Git-Tutorial>git log                                                    // 로그 찍어보면 해당 커밋 빼고 다 삭제된것을 볼 수 있음
+commit 2846499631a448779aa1565d063f7b64582dc88e (HEAD -> main)
+Author: Seohyun <korean021030@gmail.com>
+Date:   Fri Sep 1 15:56:01 2023 +0900
+
+    Add Text File [document.txt]
+C:\Tutorial\Git-Tutorial>git push -f                 // git push하면 오류남 그래서 원격저장소랑 같게하려면 -f 옵션줘서 강제로 해야함
+
+
+C:\Tutorial\Git-Tutorial>git commit --amend    // 커밋 메시지 수정 a로 들어가서 esc로 나와서 :wq!로 저장
+
+
+____________________________간편 외우기_________________________________
+C:\Tutorial\Git-Tutorial>git pull            // 깃헙에 있는걸 내컴퓨터로 저장하기 동기화 지금은 둘다 같아서임
+my_module.java수정
+
+C:\Tutorial\Git-Tutorial>git add .
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Mul]"
+C:\Tutorial\Git-Tutorial>git push
+C:\Tutorial\Git-Tutorial>git log                       // 커밋 내역들을 보여줌 로그 로그를 그만보고싶으면 q입력
+commit 63c719ef2c7c7492522cba5e84869270461a0dae (HEAD -> main, origin/main, origin/HEAD)
+    Add my_module [Mul]
+
+commit 079aee031ae5c2fb3b1cd0246400e5ad2490dce9
+    Add my_module [Sub]
+
+commit 762e873a1cdd46ddae875102af4b5a011139b276
+    Add my_module [Add]
+
+commit 2846499631a448779aa1565d063f7b64582dc88e
+    Add Text File [document.txt]
+
+C:\Tutorial\Git-Tutorial>git reset --hard 2846499631a448779aa1565d063f7b64582dc88e // TextFile커밋때로 돌아가기 그위의 커밋들은 모두 삭제된다.
+C:\Tutorial\Git-Tutorial>git log                                                    // 로그 찍어보면 해당 커밋 빼고 다 삭제된것을 볼 수 있음
+commit 2846499631a448779aa1565d063f7b64582dc88e (HEAD -> main) // 정말이다
+    Add Text File [document.txt]
+C:\Tutorial\Git-Tutorial>git push -f                 // git push하면 오류남 그래서 원격저장소랑 같게하려면 -f 옵션줘서 강제로 해야함
+C:\Tutorial\Git-Tutorial>git commit --amend    // 커밋 메시지 수정 a로 들어가서 esc로 나와서 :wq!로 저장

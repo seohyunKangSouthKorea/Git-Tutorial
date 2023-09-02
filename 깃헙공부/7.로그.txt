@@ -1,0 +1,27 @@
+C:\Tutorial\Git-Tutorial>git log --pretty=oneline           // 각각의 커밋내역들을 한줄에 표시(언제커밋됐는지 등의 다양한정보는 출력되지않음)
+b8c2e8254b06ad0dcc36f3ad1c3386369dd64928 (HEAD -> main, origin/main, origin/HEAD) Add my_module [Div] & Comment
+2fd29a3870f17040389aff73bd6f0cb2ff9c735f Add my_module [Div] & Comment
+58a630c217b390f2348980e569f3eb66d4b07ceb Add my_module [Div]
+ba2d9f4d42b3db4a96c3954a75518ee1edd13d8f Add my_module [Mul]
+679370a4c7805036c3b808973ffc242d8f741f9e Add my_module [Sub]
+f8cb84290e8b36c9aef59bb566d83d49b94ae416 Add my_module [Add]
+2846499631a448779aa1565d063f7b64582dc88e Add Text File [document.txt]
+
+
+젤많이 쓰이는 명령어
+C:\Tutorial\Git-Tutorial>git log --pretty=format:"%h -> %an, %ar : %s" --graph   // 커밋해시값 -> authorname, 작성날짜 : 커밋메시지 그래프와함께 출력
+*   b8c2e82 -> Seohyun, 10 hours ago : Add my_module [Div] & Comment
+|\
+| * 58a630c -> Seohyun, 10 hours ago : Add my_module [Div]
+* | 2fd29a3 -> Seohyun, 10 hours ago : Add my_module [Div] & Comment
+|/
+* ba2d9f4 -> Seohyun, 11 hours ago : Add my_module [Mul]
+* 679370a -> Seohyun, 23 hours ago : Add my_module [Sub]
+* f8cb842 -> Seohyun, 23 hours ago : Add my_module [Add]
+* 2846499 -> Seohyun, 25 hours ago : Add Text File [document.txt]
+
+develop과 main브랜치가 각각 동일한 시점에서 어떻게 구성이 됐는지 확인할 수 있고 
+두가지중에 main에서 수정한내용을 선택해서 결과적으로 해당 main브랜치로 merge가 일어난것까지 graph형태로확인 가능
+최근
+...
+옛날

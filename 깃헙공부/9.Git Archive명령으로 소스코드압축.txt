@@ -1,0 +1,2 @@
+Git Archive명령은 깃프로젝트에서 .git폴더빼고 다 추출해서 압축파일로 만드는 것이다.
+C:\Tutorial\Git-Tutorial>git archive --format=zip main -o main.zip    // main 브랜치에서 가져와서 main.zip으로 추출하겠다. 

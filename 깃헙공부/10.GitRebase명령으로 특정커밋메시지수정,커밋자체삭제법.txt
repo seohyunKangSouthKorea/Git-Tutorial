@@ -1,0 +1,176 @@
+C:\Git Project Example>git init
+Initialized empty Git repository in C:/Git Project Example/.git/
+
+Example 1.txt파일 만들기
+C:\Git Project Example>git add .
+C:\Git Project Example>git commit -m "Add Example 1.txt"
+
+Example 1.txt파일에 문장넣어서 저장하기
+C:\Git Project Example>git add .
+C:\Git Project Example>git commit -m "Update Example 1.txt"
+
+Example 1.txt파일 삭제 하기
+C:\Git Project Example>git add .
+C:\Git Project Example>git commit -m "Delete Example 1.txt"
+
+Example 2.txt파일 만들기
+C:\Git Project Example>git add .
+C:\Git Project Example>git commit -m "Add Example 2.txt"
+
+로그찍어보기 4개의 commit이 찍힌걸 확인가능
+C:\Git Project Example>git log
+commit d0f3037a174c8425f8de42f1e0a437c7a7332936 (HEAD -> master)
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:58 2023 +0900
+
+    Add Example 2.txt
+
+commit e0d8b262e14d3fa1c080c2b418bdf0f8f11e24ae
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:23 2023 +0900
+
+    Delete Example 1.txt
+
+commit 42d864f662b072d13c46ac64f1647131a86c364b
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:01 2023 +0900
+
+    Update Example 1.txt
+
+commit 54ef55c1c04ba13d3ee56b1f6ad1dc705cbced22
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:54:13 2023 +0900
+
+    Add Example 1.txt
+
+___________________________________커밋메시지 수정법__________________________________________________________
+
+커밋메시지 수정여기서 3번째 commit메시지가 잘못됐다고 하자. Delete가아니라 Drop이었어야했는데
+그땐 git rebase를 쓰면됨
+i 옵션 : 인터네티브모드 어떤 커밋내역을 어떻게 수정할 것인지 편하게 해줌
+HEAD~3 : head를 기준으로 최근 3개의 커밋만 확인하겠다.
+C:\Git Project Example>git rebase -i HEAD~3
+
+그럼 아래처럼 뜬다. 우리가 바꾸고싶은건 Delete를 Drop으로 커밋내용이아닌 커밋메시지만 바꾸고자 하기때문에 pick을 reword로 바꾸면된다.
+pick 42d864f Update Example 1.txt
+pick e0d8b26 Delete Example 1.txt
+pick d0f3037 Add Example 2.txt
+
+reword로 바꾸고 :wq!저장해서나오면
+pick 42d864f Update Example 1.txt
+reword e0d8b26 Delete Example 1.txt
+pick d0f3037 Add Example 2.txt
+
+
+이렇게 또뜬다 어떻게 커밋 메시지를 바꿀 건지 물으는 것이다 여기서 Delete를 Drop으로 바꾸면된다.
+Delete Example 1.txt
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Sat Sep 2 17:55:23 2023 +0900
+#
+# interactive rebase in progress; onto 54ef55c
+# Last commands done (2 commands done):
+#    pick 42d864f Update Example 1.txt
+#    reword e0d8b26 Delete Example 1.txt
+# Next command to do (1 remaining command):
+#    pick d0f3037 Add Example 2.txt
+# You are currently editing a commit while rebasing branch 'master' on '54ef55c'.
+#
+# Changes to be committed:
+#       deleted:    Example 1.txt
+
+Delete -> Drop으로 바꾸고 :wq!
+Drop Example 1.txt
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+#
+# Date:      Sat Sep 2 17:55:23 2023 +0900
+#
+# interactive rebase in progress; onto 54ef55c
+# Last commands done (2 commands done):
+#    pick 42d864f Update Example 1.txt
+#    reword e0d8b26 Delete Example 1.txt
+# Next command to do (1 remaining command):
+#    pick d0f3037 Add Example 2.txt
+# You are currently editing a commit while rebasing branch 'master' on '54ef55c'.
+#
+# Changes to be committed:
+#       deleted:    Example 1.txt
+
+
+
+로그를 찍어보면 3번째 커밋 메시지가 Drop으로 바뀐걸 확인
+C:\Git Project Example>git log
+commit f833a4d6bdd5ff54c71501687b85dcb9c0ce36ae (HEAD -> master)
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:58 2023 +0900
+
+    Add Example 2.txt
+
+commit a58e9f5bd196db0e161f3b187d16cc5429fba08b
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:23 2023 +0900
+
+    Drop Example 1.txt
+
+commit 42d864f662b072d13c46ac64f1647131a86c364b
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:01 2023 +0900
+
+    Update Example 1.txt
+
+commit 54ef55c1c04ba13d3ee56b1f6ad1dc705cbced22
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:54:13 2023 +0900
+
+    Add Example 1.txt
+
+
+근데 커밋을 많이 해서 옛날 커밋을 바꾸고자해 rebase하려면 커밋해시값을 넣으면 된다. 그러면 넣어준 커밋제외 위쪽으로 확인한다.
+C:\Git Project Example>git rebase -i 42d864f662b072d13c46ac64f1647131a86c364b
+
+Update Example 1.txt 커밋의 위쪽2개가 확인됨을 볼수있다.
+pick a58e9f5 Drop Example 1.txt
+pick f833a4d Add Example 2.txt
+
+________________________________________________________________________________________________
+
+_________________________커밋을 삭제해보기_____________________________
+
+C:\Git Project Example>git rebase -i HEAD~3
+pick 42d864f Update Example 1.txt
+pick a58e9f5 Drop Example 1.txt
+pick f833a4d Add Example 2.txt
+
+Drop의 커밋자체를 삭제하기위해 drop으로 수정후 :wq!로 저장해서 나가기
+pick 42d864f Update Example 1.txt
+drop a58e9f5 Drop Example 1.txt
+pick f833a4d Add Example 2.txt
+
+log찍어보니 drop커밋이 삭제된것이 보임
+C:\Git Project Example>git log 
+commit 7f330a6bce58e6523af62290f865f6e22b5c9cf9 (HEAD -> master)
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:58 2023 +0900
+
+    Add Example 2.txt
+
+commit 42d864f662b072d13c46ac64f1647131a86c364b
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:55:01 2023 +0900
+
+    Update Example 1.txt
+
+commit 54ef55c1c04ba13d3ee56b1f6ad1dc705cbced22
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 17:54:13 2023 +0900
+
+    Add Example 1.txt
+
+
+example 1.txt를 지우는 commit을 제거를 했기 때문에
+
+폴더에 가보면 example 1.txt가 생겨난 것을 확인 할 수 있음

@@ -1,0 +1,84 @@
+C:\Tutorial\Git-Tutorial>git branch   // 현재 존재하는 브랜치는 당연히 main브랜치 밖에 없음
+* main 
+C:\Tutorial\Git-Tutorial>git branch develop    // develop 브랜치 생성
+C:\Tutorial\Git-Tutorial>git branch             // develop브랜치 생성을 확인함
+  develop
+* main
+
+C:\Tutorial\Git-Tutorial>git checkout develop  // develop브랜치로 접속하기
+Switched to branch 'develop'
+
+C:\Tutorial\Git-Tutorial>git branch              // 현재는 develop브랜치를 바라보고있음을 알 수 있음
+* develop
+  main
+
+이상태에서 소스코드를 수정해서
+C:\Tutorial\Git-Tutorial>git add .
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Mul]"
+C:\Tutorial\Git-Tutorial>git log                                           // log를 찍어보면
+commit ba2d9f4d42b3db4a96c3954a75518ee1edd13d8f (HEAD -> develop)  // 현재 헤드가 develop브랜치를 가리키고있음을 보임
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 06:00:55 2023 +0900
+
+    Add my_module [Mul]                                                                 // develop브랜치에서는 하나의 함수가 추가됨을 확인
+
+commit 679370a4c7805036c3b808973ffc242d8f741f9e (origin/main, origin/HEAD, main) // 깃허브 원격지 주소같은 경우에는 아직 반영안됨
+Author: Seohyun <korean021030@gmail.com>                                                   // 왜? develop브랜치에 새함수를 추가해수정돼서 당연히 main브랜치에는반영안됨
+Date:   Fri Sep 1 17:36:52 2023 +0900
+
+    Add my_module [Sub]
+
+현재 develop브랜치에서만 수정된 코드가 적용되고 main브랜치(원격지주소)는 당연히 원상태임
+develop브랜치에서 추가된 내용을 main으로 통합하고자 한다면 merge하고자
+
+C:\Tutorial\Git-Tutorial>git checkout main                      // main으로 다시 돌아간 이후에
+Switched to branch 'main'
+Your branch is up to date with 'origin/main'.
+
+C:\Tutorial\Git-Tutorial>git merge develop                    // merge를 이용해서 develop이라는 이름의 브랜치를 main으로 합칠수있게된다.
+
+C:\Tutorial\Git-Tutorial>git log                                   // 다시한번 log를 찍어보면 main과 develop이 둘다 수정된 함수를 반영함을 알 수 있고
+commit ba2d9f4d42b3db4a96c3954a75518ee1edd13d8f (HEAD -> main, develop)
+Author: Seohyun <korean021030@gmail.com>
+Date:   Sat Sep 2 06:00:55 2023 +0900
+
+    Add my_module [Mul]
+
+C:\Tutorial\Git-Tutorial>git push                               // 원격지에서도 반영이 되기 위해서 git push꼭해줘야함
+
+C:\Tutorial\Git-Tutorial>git branch                            // 병합이 끝난 브랜치는 기능을 다했기에 지우면 된다.
+  develop
+* main
+
+C:\Tutorial\Git-Tutorial>git branch -d develop            // develop브랜치 지우기
+Deleted branch develop (was ba2d9f4).
+
+C:\Tutorial\Git-Tutorial>git branch                           // main만 남은 모습
+* main
+
+
+
+
+____________________________________________________________간편정리 밑에________________________________
+C:\Tutorial\Git-Tutorial>git branch   // 현재 존재하는 브랜치는 당연히 main브랜치 밖에 없음
+* main 
+C:\Tutorial\Git-Tutorial>git branch develop    // develop 브랜치 생성
+C:\Tutorial\Git-Tutorial>git branch             // develop브랜치 생성을 확인함
+  develop
+* main
+C:\Tutorial\Git-Tutorial>git checkout develop  // develop브랜치로 접속하기
+C:\Tutorial\Git-Tutorial>git branch              // 현재는 develop브랜치를 바라보고있음을 알 수 있음
+* develop
+  main
+이상태에서 my_module.java를 수정해서
+C:\Tutorial\Git-Tutorial>git add .
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Mul]"
+C:\Tutorial\Git-Tutorial>git checkout main                      // main으로 다시 돌아간 이후에
+C:\Tutorial\Git-Tutorial>git merge develop                    // merge를 이용해서 develop이라는 이름의 브랜치를 main으로 합칠수있게된다.
+C:\Tutorial\Git-Tutorial>git push                               // 원격지에서도 반영이 되기 위해서 git push꼭해줘야함
+C:\Tutorial\Git-Tutorial>git branch                            // 병합이 끝난 브랜치는 기능을 다했기에 지우면 된다.
+  develop
+* main
+C:\Tutorial\Git-Tutorial>git branch -d develop            // develop브랜치 지우기
+C:\Tutorial\Git-Tutorial>git branch                           // main만 남은 모습
+* main

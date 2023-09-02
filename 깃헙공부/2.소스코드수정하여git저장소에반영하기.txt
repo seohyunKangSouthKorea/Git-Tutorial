@@ -1,0 +1,36 @@
+C드라이브밑에Tutorial폴더 새로만들기
+C:\Users\ksh72>cd C:\Tutorial
+C:\Tutorial>git clone https://github.com/seohyunKangSouthKorea/Git-Tutorial.git
+C:\Tutorial>cd Git-Tutorial
+거기서 my_module.java파일 새로 만들기
+C:\Tutorial\Git-Tutorial>git status                                    // 새로만든 저파일 스테이징영역에 올리라고add하라고 뜬다.
+  (use "git add <file>..." to include in what will be committed)
+        my_module.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+C:\Tutorial\Git-Tutorial>git add my_module.java
+C:\Tutorial\Git-Tutorial>git status                      // 스테이징영역에 올라왔음을 확인
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        new file:   my_module.java
+C:\Tutorial\Git-Tutorial>git reset my_module.java  // 스테이징 상태에서 다시 원상태로 내릴 수도 있음
+C:\Tutorial\Git-Tutorial>git status
+On branch main
+Your branch is up to date with 'origin/main'.
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        my_module.java
+
+nothing added to commit but untracked files present (use "git add" to track)
+C:\Tutorial\Git-Tutorial>git add .                   // 굳이 파일명으로 안올리고 수정된거 다 스테이징영역으로 올리고 싶으면 .을 쓰면됨
+my_module.java파일을 수정하고
+C:\Tutorial\Git-Tutorial>git checkout -- my_module.java         // 수정내역을 무시하고 원상태로 돌리는 명령어임(git add . 하기전 수정만했을때 가능한 명령어임)
+다시 my_module.java파일을 수정하고
+C:\Tutorial\Git-Tutorial>git add .                    // 변경된 소스코드를 스테이징영역에 올리고
+C:\Tutorial\Git-Tutorial>git commit -m "Add my_module [Sub]"      // 커밋 진행
+근데 커밋메시지를 잘못넣었음 이럴 때는 amend명령어를 이용해서 메시지를 수정해야함
+C:\Tutorial\Git-Tutorial>git commit --amend                        // 커밋메시지 변경법  나갈때는:wq!

@@ -1,0 +1,10 @@
+c드라이브밑Users밑ksh72에 git설치
+C:\Users\ksh72>git config --global user.name Seohyun Kang
+C:\Users\ksh72>git config --global user.email korean021030@gmail.com
+c드라이브밑에Education폴더 만들고 거기 document.txt만들어서 안녕하세요입력후저장
+C:\Users\ksh72>cd C:\Education 
+C:\Education>git clone https://github.com/seohyunKangSouthKorea/Git-Tutorial.git   // 원격저장소에있는 Git-Tutorial 폴더를 가져옴
+C:\Education>cd Git-Tutorial
+C:\Education\Git-Tutorial>git add document.txt                                             // 로컬저장소에 저장했던 document.txt 원격저장소에 넣기위해 시도
+C:\Education\Git-Tutorial>git commit -m "Add Text File [document.txt]"
+C:\Education\Git-Tutorial>git push                                                              // push를 해야 원격 저장소에 올라감 
